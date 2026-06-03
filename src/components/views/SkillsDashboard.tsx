@@ -367,8 +367,8 @@ export default function SkillsDashboard() {
         Technical Proficiencies
       </h1>
 
-      {/* Grid of skill categories */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '20px' }}>
+      {/* Stack of skill categories */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
         {skills.map((group, gIdx) => {
           const isExpanded = selectedGroup === group.label;
           return (
