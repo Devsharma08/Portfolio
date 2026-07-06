@@ -222,7 +222,7 @@ export default function SkillsDashboard() {
     switch (cmd) {
       case 'help':
         newHistory.push({
-          text: 'Available Commands:\n  help           - Display this helper\n  skills         - List core technical proficiencies\n  certifications - Print cloud certifications\n  hackathon      - Details on hackathon success\n  campusfinder   - Inspect the CampusFinder project specs\n  supabase       - Supabase Realtime details\n  about          - Print professional synopsis\n  [techname]     - Type any technology (e.g. "docker", "react", "webrtc")\n  clear          - Clear console buffer',
+          text: 'Available Commands:\n  help           - Display this helper\n  skills         - List core technical proficiencies\n  certifications - Print cloud certifications\n  hackathon      - Details on hackathon success\n  campusfinder   - Inspect the CampusFinder project specs\n  vidsync        - Inspect the VidSync project specs\n  supabase       - Supabase Realtime details\n  about          - Print professional synopsis\n  [techname]     - Type any technology (e.g. "docker", "react", "sse", "ollama")\n  clear          - Clear console buffer',
           type: 'output'
         });
         break;
@@ -319,6 +319,27 @@ export default function SkillsDashboard() {
           type: 'success'
         });
         break;
+      case 'vidsync':
+        newHistory.push({
+          text: '📡 VidSync - Post-Stream Ingestion & Analysis Engine:\n  - Backend pipeline designed to ingest video/livestream content.\n  - Employs Python subprocess wrappers to scrape transcript metadata and live chat records.\n  - Synchronizes chat logs using latency-shifting algorithm (1.5s per word typing speed compensation).\n  - Computes high-dimensional nomic-embed vector similarities to power in-memory semantic search.\n  - Streams RAG answers token-by-token using gemma3:1b over Server-Sent Events (SSE).',
+          type: 'success'
+        });
+        break;
+      case 'ollama':
+      case 'gemma':
+      case 'rag':
+        newHistory.push({
+          text: '🤖 Cloud AI Deployment & RAG Systems:\n  - Experience pulling, hosting, and deploying local open-source models (gemma3:1b, nomic-embed-text) over cloud servers.\n  - Built highly efficient Retrieval-Augmented Generation (RAG) context inject pipelines matching intent mathematically via cosine similarity.',
+          type: 'success'
+        });
+        break;
+      case 'sse':
+      case 'streaming':
+        newHistory.push({
+          text: '⚡ Server-Sent Events (SSE) Streaming:\n  - Designed robust real-time text-streaming APIs that emit response segments token-by-token directly to client interfaces, preventing buffering lags.',
+          type: 'success'
+        });
+        break;
       default:
         // Try searching skills or other list
         const matchedSkill = skills
@@ -349,6 +370,12 @@ export default function SkillsDashboard() {
         st.items.some((item) => item.toLowerCase().includes(skillName.toLowerCase()))
       );
       if (match) list.push(proj.name);
+    });
+    PORTFOLIO_DATA.uiSamples.forEach((sample) => {
+      const match = sample.stack.some((st) =>
+        st.items.some((item) => item.toLowerCase().includes(skillName.toLowerCase()))
+      );
+      if (match) list.push(`${sample.name} (UI Showcase)`);
     });
     return list;
   };

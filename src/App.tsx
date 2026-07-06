@@ -17,6 +17,8 @@ import AboutMe from './components/views/AboutMe';
 import SkillsDashboard from './components/views/SkillsDashboard';
 import Projects from './components/views/Projects';
 import SingleProject from './components/views/SingleProject';
+import UiSamples from './components/views/UiSamples';
+import SingleUiSample from './components/views/SingleUiSample';
 import Contact from './components/views/Contact';
 import Resume from './components/views/Resume';
 
@@ -26,11 +28,18 @@ const filesList: Record<string, FileItem & { path: string; lang: string }> = {
   aboutMe: { key: 'aboutMe', name: 'about_me.jsx', ext: 'jsx', folder: 'portfolio', path: '#/about-me', lang: 'JavaScript React' },
   skills: { key: 'skills', name: 'skills.tsx', ext: 'tsx', folder: 'portfolio', path: '#/skills', lang: 'TypeScript React' },
   projects: { key: 'projects', name: 'projects.js', ext: 'js', folder: 'portfolio', path: '#/projects', lang: 'JavaScript' },
+  ui_samples: { key: 'ui_samples', name: 'ui_samples.js', ext: 'js', folder: 'portfolio', path: '#/ui-samples', lang: 'JavaScript' },
   contact: { key: 'contact', name: 'contact.json', ext: 'json', folder: 'portfolio', path: '#/contact', lang: 'JSON' },
   resume: { key: 'resume', name: 'resume.pdf', ext: 'pdf', folder: 'root', path: '#/resume', lang: 'PDF', labelColor: '#e06c75' },
   project_campusfinder: { key: 'project_campusfinder', name: 'campusfinder.js', ext: 'js', folder: 'projects', path: '#/projects/campusfinder', lang: 'JavaScript' },
   project_bracerce: { key: 'project_bracerce', name: 'bracerce.js', ext: 'js', folder: 'projects', path: '#/projects/bracerce', lang: 'JavaScript' },
-  project_giflab: { key: 'project_giflab', name: 'giflab.js', ext: 'js', folder: 'projects', path: '#/projects/giflab', lang: 'JavaScript' }
+  project_giflab: { key: 'project_giflab', name: 'giflab.js', ext: 'js', folder: 'projects', path: '#/projects/giflab', lang: 'JavaScript' },
+  project_vidsync: { key: 'project_vidsync', name: 'vidsync.js', ext: 'js', folder: 'projects', path: '#/projects/vidsync', lang: 'JavaScript' },
+  ui_oh_studio: { key: 'ui_oh_studio', name: 'oh_studio.jsx', ext: 'jsx', folder: 'ui_samples', path: '#/ui-samples/oh-studio', lang: 'JavaScript React' },
+  ui_basic_agency: { key: 'ui_basic_agency', name: 'basic_agency.jsx', ext: 'jsx', folder: 'ui_samples', path: '#/ui-samples/basic-agency', lang: 'JavaScript React' },
+  ui_backstage_talks: { key: 'ui_backstage_talks', name: 'backstage_talks.jsx', ext: 'jsx', folder: 'ui_samples', path: '#/ui-samples/backstage-talks', lang: 'JavaScript React' },
+  ui_brainwave: { key: 'ui_brainwave', name: 'brainwave.jsx', ext: 'jsx', folder: 'ui_samples', path: '#/ui-samples/brainwave', lang: 'JavaScript React' },
+  ui_apple_iphone15: { key: 'ui_apple_iphone15', name: 'apple_iphone15.jsx', ext: 'jsx', folder: 'ui_samples', path: '#/ui-samples/apple-iphone15', lang: 'JavaScript React' }
 };
 
 // Frame favicon blinking/animation grids
@@ -108,6 +117,7 @@ export default function App() {
   const [activeTabKey, setActiveTabKey] = useState('app');
   const [openTabKeys, setOpenTabKeys] = useState<string[]>(['app']);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [useCustomCursor, setUseCustomCursor] = useState(true);
 
   // Favicon loops
@@ -221,11 +231,25 @@ export default function App() {
       case 'projects':
         return <Projects onOpenFile={openFile} />;
       case 'project_bracerce':
-        return <SingleProject project={PORTFOLIO_DATA.projects[0]} onBack={() => openFile('projects')} />;
+        return <SingleProject project={PORTFOLIO_DATA.projects.find(p => p.name.toLowerCase().includes('bracerce'))!} onBack={() => openFile('projects')} />;
       case 'project_campusfinder':
-        return <SingleProject project={PORTFOLIO_DATA.projects[1]} onBack={() => openFile('projects')} />;
+        return <SingleProject project={PORTFOLIO_DATA.projects.find(p => p.name.toLowerCase().includes('campusfinder'))!} onBack={() => openFile('projects')} />;
       case 'project_giflab':
-        return <SingleProject project={PORTFOLIO_DATA.projects[2]} onBack={() => openFile('projects')} />;
+        return <SingleProject project={PORTFOLIO_DATA.projects.find(p => p.name.toLowerCase().includes('giflab'))!} onBack={() => openFile('projects')} />;
+      case 'project_vidsync':
+        return <SingleProject project={PORTFOLIO_DATA.projects.find(p => p.name.toLowerCase().includes('vidsync'))!} onBack={() => openFile('projects')} />;
+      case 'ui_samples':
+        return <UiSamples onOpenFile={openFile} />;
+      case 'ui_oh_studio':
+        return <SingleUiSample sample={PORTFOLIO_DATA.uiSamples.find(s => s.name.toLowerCase().includes('oh studio'))!} onBack={() => openFile('ui_samples')} />;
+      case 'ui_basic_agency':
+        return <SingleUiSample sample={PORTFOLIO_DATA.uiSamples.find(s => s.name.toLowerCase().includes('basic agency'))!} onBack={() => openFile('ui_samples')} />;
+      case 'ui_backstage_talks':
+        return <SingleUiSample sample={PORTFOLIO_DATA.uiSamples.find(s => s.name.toLowerCase().includes('backstage'))!} onBack={() => openFile('ui_samples')} />;
+      case 'ui_brainwave':
+        return <SingleUiSample sample={PORTFOLIO_DATA.uiSamples.find(s => s.name.toLowerCase().includes('brainwave'))!} onBack={() => openFile('ui_samples')} />;
+      case 'ui_apple_iphone15':
+        return <SingleUiSample sample={PORTFOLIO_DATA.uiSamples.find(s => s.name.toLowerCase().includes('apple'))!} onBack={() => openFile('ui_samples')} />;
       case 'contact':
         return <Contact />;
       case 'resume':
@@ -261,8 +285,12 @@ export default function App() {
           <div className="workspace">
             {/* Actbar indicator */}
             <div className="actbar">
-              <div className="actbar-item active" title="Explorer">
-                <div className="actbar-indicator" />
+              <div
+                className={`actbar-item ${!isSidebarCollapsed ? 'active' : ''}`}
+                title="Explorer"
+                onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+              >
+                {!isSidebarCollapsed && <div className="actbar-indicator" />}
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M17.5 0h-9L7 1.5V6H2.5L1 7.5v15.07L2.5 24h12.07L16 22.57V18h4.5l1.5-1.5V4.5L17.5 0zm0 2.12l2.38 2.38H17.5V2.12zm-3 20.38H2.5V7.5H7v9.07L8.5 18H14.5v4.5zm6-6H8.5V1.5h7.5v4.5l1.5 1.5H20.5v9z" />
                 </svg>
@@ -275,6 +303,7 @@ export default function App() {
               onOpenFile={openFile}
               files={filesList}
               isMobileOpen={isSidebarOpen}
+              isCollapsed={isSidebarCollapsed}
             />
 
             {/* Drawer Overlay for Mobile */}

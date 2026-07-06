@@ -4,7 +4,7 @@ export interface FileItem {
   key: string;
   name: string;
   ext: string;
-  folder: 'root' | 'portfolio' | 'projects' | 'publications';
+  folder: 'root' | 'portfolio' | 'projects' | 'publications' | 'ui_samples';
   labelColor?: string;
 }
 
@@ -13,6 +13,7 @@ interface SidebarProps {
   onOpenFile: (key: string) => void;
   files: Record<string, FileItem>;
   isMobileOpen?: boolean;
+  isCollapsed?: boolean;
 }
 
 const extColors: Record<string, { color: string; letter: string; dark?: boolean }> = {
@@ -42,13 +43,15 @@ export function getFileBadge(ext: string) {
   );
 }
 
-export default function Sidebar({ activeTabKey, onOpenFile, files, isMobileOpen }: SidebarProps) {
+export default function Sidebar({ activeTabKey, onOpenFile, files, isMobileOpen, isCollapsed }: SidebarProps) {
   const [projectsExpanded, setProjectsExpanded] = useState(true);
+  const [uiSamplesExpanded, setUiSamplesExpanded] = useState(true);
 
   // Group files by folder
   const rootFiles = Object.entries(files).filter(([_, f]) => f.folder === 'root');
   const portfolioFiles = Object.entries(files).filter(([_, f]) => f.folder === 'portfolio');
   const projectFiles = Object.entries(files).filter(([_, f]) => f.folder === 'projects');
+  const uiSampleFiles = Object.entries(files).filter(([_, f]) => f.folder === 'ui_samples');
 
   const renderFileNode = (key: string, f: FileItem, paddingLeft: number) => {
     const isActive = key === activeTabKey;
@@ -68,7 +71,7 @@ export default function Sidebar({ activeTabKey, onOpenFile, files, isMobileOpen 
   };
 
   return (
-    <div className={`sidebar ${isMobileOpen ? 'sidebar-mobile-open' : 'sidebar-mobile-hidden'}`} id="sidebar">
+    <div className={`sidebar ${isMobileOpen ? 'sidebar-mobile-open' : 'sidebar-mobile-hidden'} ${isCollapsed ? 'collapsed' : ''}`} id="sidebar">
       <div className="sidebar-title">Explorer</div>
       <div className="sidebar-explorer">
         {/* Render Root Files */}
@@ -104,6 +107,36 @@ export default function Sidebar({ activeTabKey, onOpenFile, files, isMobileOpen 
         {projectsExpanded && (
           <div style={{ display: 'block' }}>
             {projectFiles.map(([key, f]) => renderFileNode(key, f, 28))}
+          </div>
+        )}
+
+        {/* UI Samples Folder Header */}
+        <div
+          className="tree-node-folder"
+          onClick={() => setUiSamplesExpanded(!uiSamplesExpanded)}
+        >
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 16 16"
+            fill="var(--comment)"
+            style={{
+              transform: uiSamplesExpanded ? 'rotate(90deg)' : 'rotate(0deg)',
+              transition: 'transform .1s',
+              marginRight: '4px'
+            }}
+          >
+            <path d="M6 4l4 4-4 4V4z"/>
+          </svg>
+          <span style={{ fontWeight: 600, fontSize: '11px', color: 'var(--plain)', textTransform: 'lowercase' }}>
+            ui samples
+          </span>
+        </div>
+
+        {/* Render UI Samples List */}
+        {uiSamplesExpanded && (
+          <div style={{ display: 'block' }}>
+            {uiSampleFiles.map(([key, f]) => renderFileNode(key, f, 28))}
           </div>
         )}
       </div>

@@ -52,41 +52,44 @@ export default function Welcome() {
           <span className="kw">import</span> <span className="plain">{"{ projects }"}</span> <span className="kw">from</span> <span className="str">"./portfolio/projects.js"</span><span className="plain">;</span>
         </CodeLine>
         <CodeLine num={8}>
-          <span className="kw">import</span> <span className="plain">{"{ contact }"}</span> <span className="kw">from</span> <span className="str">"./portfolio/contact.json"</span><span className="plain">;</span>
+          <span className="kw">import</span> <span className="plain">{"{ ui_samples }"}</span> <span className="kw">from</span> <span className="str">"./portfolio/ui_samples.js"</span><span className="plain">;</span>
         </CodeLine>
         <CodeLine num={9}>
+          <span className="kw">import</span> <span className="plain">{"{ contact }"}</span> <span className="kw">from</span> <span className="str">"./portfolio/contact.json"</span><span className="plain">;</span>
+        </CodeLine>
+        <CodeLine num={10}>
           <span className="kw">import</span> <span className="plain">{"{ resume }"}</span> <span className="kw">from</span> <span className="str">"./resume.pdf"</span><span className="plain">;</span>
         </CodeLine>
-        <CodeLine num={10}><span className="plain"></span></CodeLine>
-        <CodeLine num={11}>
+        <CodeLine num={11}><span className="plain"></span></CodeLine>
+        <CodeLine num={12}>
           <span className="kw">const</span> <span className="fn">InitPortfolio</span> <span className="plain">{"= () => {"}</span>
         </CodeLine>
-        <CodeLine num={12}>
+        <CodeLine num={13}>
           <span className="kw">  return</span> <span className="plain">{"("}</span>
         </CodeLine>
-        <CodeLine num={13}>
+        <CodeLine num={14}>
           <span className="plain">    &lt;</span><span class="tag">VSCodeWorkspace</span><span className="plain">&gt;</span>
         </CodeLine>
-        <CodeLine num={14}>
+        <CodeLine num={15}>
           <span className="plain">      &lt;</span><span class="tag">Preloader</span> <span class="attr" style={{ color: 'var(--type)' }}>anim</span><span class="plain">=</span><span class="str">"walkingRobot"</span> <span class="attr" style={{ color: 'var(--type)' }}>delay</span><span class="plain">=</span><span class="num">{"{2800}"}</span> <span class="plain">/&gt;</span>
         </CodeLine>
-        <CodeLine num={15}>
+        <CodeLine num={16}>
           <span className="plain">      &lt;</span><span class="tag">DynamicExplorer</span> <span class="attr" style={{ color: 'var(--type)' }}>openFolders</span><span class="plain">=</span><span class="num">{"{true}"}</span> <span class="plain">/&gt;</span>
         </CodeLine>
-        <CodeLine num={16}>
+        <CodeLine num={17}>
           <span className="plain">      &lt;</span><span class="tag">InteractiveStatusbar</span> <span class="attr" style={{ color: 'var(--type)' }}>lang</span><span class="plain">=</span><span class="str">"React TS"</span> <span class="plain">/&gt;</span>
         </CodeLine>
-        <CodeLine num={17}>
-          <span className="plain">    &lt;/</span><span class="tag">VSCodeWorkspace</span><span class="plain">&gt;</span>
-        </CodeLine>
         <CodeLine num={18}>
-          <span className="plain">  );</span>
+          <span className="plain">    &lt;/</span><span class="tag">VSCodeWorkspace</span><span className="plain">&gt;</span>
         </CodeLine>
         <CodeLine num={19}>
+          <span className="plain">  );</span>
+        </CodeLine>
+        <CodeLine num={20}>
           <span className="plain">{"};"}</span>
         </CodeLine>
-        <CodeLine num={20}><span className="plain"></span></CodeLine>
-        <CodeLine num={21}>
+        <CodeLine num={21}><span className="plain"></span></CodeLine>
+        <CodeLine num={22}>
           <span className="kw">export default</span> <span className="fn">InitPortfolio</span><span className="plain">;</span>
         </CodeLine>
       </div>
